@@ -34,6 +34,8 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/runkeeper.js"></script>
+        <script src="js/api.js"></script>        
 		
 		<script src="js/recent-run.js"></script>
 		
@@ -43,9 +45,6 @@
 		var i = 0;
 		var interval = null;
 		
-//		var sheets = document.styleSheets;
-//		var sheet = document.styleSheets[1];
-
 $( document ).ready(function() {
 
 		function preload_images() {
@@ -84,6 +83,9 @@ $( document ).ready(function() {
 				interval = setInterval(cycle_images, 60);
 				//console.log('cycle continues');
 			});
+		
+		
+
 										
 		}); //End of document.ready
 		</script>
