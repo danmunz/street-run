@@ -50,24 +50,30 @@
 $( document ).ready(function() {
 
 
-var access_token = getURLParameter('code');
+var code = getURLParameter('code');
 var url = 'https://api.runkeeper.com/user/?userID=danmunz&access_token='+access_token+'&callback=foo';
 console.log(access_token);
 
-function setHeader(xhr) {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
-        console.log("Done");
+function rk_apiCall( url, code, type, callback )
+{
+	var dtype = "json";
+	$.ajax( {
+		url: 		url,
+		type: 		'GET',
+		dataType: 	dtype,
+		success: 	function(data) { callback( data ); console.log(data); },
+		error: 		function(data) { alert("Error!"); console.log(data); },
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader( 'Authorization', 'Bearer ' + access_token );
+			xhr.setRequestHeader( 'Accept', type );
+		},
+		xhrFields: {
+      		withCredentials: true
+      	}
+	});
 }
- 
-$.ajax({
-          url: 'https://api.runkeeper.com/user/',
-          type: 'GET',
-          dataType: 'json',
-          success: function(data) { console.log(data); },
-          beforeSend: setHeader
-});
 
-
+rk_apiCall( 'http://api.runkeeper.com/profile', token, 'application/vnd.com.runkeeper.Profile+json', profileLoaded );
 
 
 
