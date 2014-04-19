@@ -51,7 +51,10 @@ $( document ).ready(function() {
 
 
 var code = getURLParameter('code');
+
 console.log("The code is" + code + "!");
+
+if (code != null){
 
 function rk_apiCall( url, access_token, type, callback )
 {
@@ -73,10 +76,13 @@ function rk_apiCall( url, access_token, type, callback )
 }
 
 rk_apiCall( 'http://api.runkeeper.com/profile', code, 'application/vnd.com.runkeeper.Profile+json', profileLoaded );
+}
 
 function profileLoaded(){
 	alert("HEYOOOO!");
 }
+
+
 
 		function preload_images() {
 				
