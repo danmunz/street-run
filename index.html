@@ -50,13 +50,24 @@
 $( document ).ready(function() {
 
 
-var code = getURLParameter('code');
-var url = 'https://api.runkeeper.com/user/?userID=danmunz&access_token='+code+'&callback=foo';
-$.getJSON(url, function(data, textStatus, jqxhr){
+var access_token = getURLParameter('code');
+//var url = 'https://api.runkeeper.com/user/?userID=danmunz&access_token='+access_token+'&callback=foo';
+
+function setHeader(xhr) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+}
  
-   console.log(data); //print out the raw json to the console 
- 
+$.ajax({
+          url: 'https://api.runkeeper.com/user/',
+          type: 'GET',
+          dataType: 'json',
+          success: function(data) { console.log(data); },
+          beforeSend: setHeader
 });
+
+
+
+
 
 		function preload_images() {
 				
