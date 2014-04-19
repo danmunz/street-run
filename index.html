@@ -51,7 +51,7 @@ $( document ).ready(function() {
 
 
 var code = getURLParameter('code');
-var url = 'https://api.runkeeper.com/user/?userID=danmunz&access_token='+code;
+var url = 'https://api.runkeeper.com/user/?userID=danmunz&access_token='+code+'&callback=foo';
 $.getJSON(url, function(data, textStatus, jqxhr){
  
    console.log(data); //print out the raw json to the console 
