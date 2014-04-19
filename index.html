@@ -54,7 +54,7 @@ var code = getURLParameter('code');
 var url = 'https://api.runkeeper.com/user/?userID=danmunz&access_token='+access_token+'&callback=foo';
 console.log("The code is" + code + "!");
 
-function rk_apiCall( url, code, type, callback )
+function rk_apiCall( url, access_token, type, callback )
 {
 	var dtype = "json";
 	$.ajax( {
@@ -73,7 +73,7 @@ function rk_apiCall( url, code, type, callback )
 	});
 }
 
-rk_apiCall( 'http://api.runkeeper.com/profile', token, 'application/vnd.com.runkeeper.Profile+json', profileLoaded );
+rk_apiCall( 'http://api.runkeeper.com/profile', code, 'application/vnd.com.runkeeper.Profile+json', profileLoaded );
 
 
 
