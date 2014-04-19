@@ -98,13 +98,20 @@ textarea {
    ========================================================================== */
 
 html{
-	font: 100% 'Avenir Next','Helvetica Neue',Helvetica,Arial;
+	font: 100% ,'Helvetica Neue',Helvetica,Arial;
 }
+
+
 
 #main {
     position: relative;
-    width: 600px;
+    margin: 0 auto;
+    width: 50%;
     height: 600px;
+}
+
+#slideshow{
+	width: 100%;
 }
 
 #main .after {

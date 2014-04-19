@@ -24,6 +24,10 @@
         <!-- Add your site or application content here -->
         <p><a href="https://runkeeper.com/apps/authorize?response_type=code&client_id=e92f86c2e11d4237b801a9af9d733894&redirect_uri=http://danmunz.github.io/street-run/">Click here to authorize.</a></p>
 
+<header>
+<h1>Run your run!</h1>
+</header>
+
 		<div id="main">
 		<img id="slideshow" width="600" height="600">
 		<div class="after">pause!</div>	
@@ -46,8 +50,13 @@
 $( document ).ready(function() {
 
 
-alert(getURLParameter(code));
-
+var code = getURLParameter('code');
+var url = 'https://api.runkeeper.com/user/?userID=danmunz&access_token='+code;
+$.getJSON(url, function(data, textStatus, jqxhr){
+ 
+   console.log(data); //print out the raw json to the console 
+ 
+});
 
 		function preload_images() {
 				
@@ -63,19 +72,20 @@ alert(getURLParameter(code));
 				images[i].lat = point[1];
 				images[i].lng = point[0];
 										
-				if (i>2){return false;}						
+				if (i>1000){return false;}						
+
 			});
 		}
 		
 		preload_images();
 				
 		function cycle_images() {
-		    i = (i < 2) ? i + 1 : 0;
+		    i = (i < 1000) ? i + 1 : 0;
+		    
 		    document.getElementById('slideshow').src = images[i].src;
 //		    $('body').append(images[i].bearing + ': ' + images[i].lat + ',' + images[i].lng + '<br/>');
 		}
-		
-		
+
 			interval = setInterval(cycle_images, 60);
 			$('#main').hover(function() {
 				clearInterval(interval);
