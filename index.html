@@ -24,6 +24,10 @@
         <!-- Add your site or application content here -->
         <p><a href="https://runkeeper.com/apps/authorize?response_type=code&client_id=e92f86c2e11d4237b801a9af9d733894&redirect_uri=http://danmunz.github.io/street-run/">Click here to authorize.</a></p>
 
+<header>
+<h1>Run your run!</h1>
+</header>
+
 		<div id="main">
 		<img id="slideshow" width="600" height="600">
 		<div class="after">pause!</div>	
@@ -34,8 +38,6 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/runkeeper.js"></script>
-        <script src="js/api.js"></script>        
 		
 		<script src="js/recent-run.js"></script>
 		
@@ -46,6 +48,39 @@
 		var interval = null;
 		
 $( document ).ready(function() {
+
+
+var code = getURLParameter('code');
+console.log("The code is" + code + "!");
+
+var profile = rk_apiCall( 'https://api.runkeeper.com/user/', code, 'application/vnd.com.runkeeper.User+json', profileLoaded );
+	
+	function rk_apiCall( url, access_token, type, callback ){
+	
+		function setHeader(xhr) {
+			xhr.setRequestHeader( 'Authorization', 'Bearer ' + access_token );
+			xhr.setRequestHeader( 'Accept', type );
+		}
+		
+		$.ajax( {
+			url: 		url,
+			type: 		'GET',
+			dataType: 	'json',
+			success: 	function(data) { console.log(data); },
+			error: 		function(data) { console.log("Error!"); },
+			beforeSend: setHeader,
+			xhrFields: {
+	      		withCredentials: true
+	      	}
+		});
+	}
+	
+
+	function profileLoaded(){
+		alert("HEYOOOO!");
+	}
+
+
 
 		function preload_images() {
 				
@@ -61,19 +96,20 @@ $( document ).ready(function() {
 				images[i].lat = point[1];
 				images[i].lng = point[0];
 										
-				if (i>2){return false;}						
+				if (i>10){return false;}						
+
 			});
 		}
 		
 		preload_images();
 				
 		function cycle_images() {
-		    i = (i < 2) ? i + 1 : 0;
+		    i = (i < 10) ? i + 1 : 0;
+		    
 		    document.getElementById('slideshow').src = images[i].src;
 //		    $('body').append(images[i].bearing + ': ' + images[i].lat + ',' + images[i].lng + '<br/>');
 		}
-		
-		
+
 			interval = setInterval(cycle_images, 60);
 			$('#main').hover(function() {
 				clearInterval(interval);
@@ -84,8 +120,6 @@ $( document ).ready(function() {
 				//console.log('cycle continues');
 			});
 		
-		
-
 										
 		}); //End of document.ready
 		</script>
@@ -119,6 +153,12 @@ $( document ).ready(function() {
 		
 		Number.prototype.mod = function(n) {
 		return ((this%n)+n)%n;
+		}
+		
+		function getURLParameter(name) {
+		    return decodeURI(
+		        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+		    );
 		}
 		
 					
