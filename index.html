@@ -50,30 +50,38 @@
 $( document ).ready(function() {
 
 
-var code = getURLParameter('code');
-console.log("The code is" + code + "!");
+        var code = getURLParameter('code');
+        var url = 'https://api.runkeeper.com/user/';
+        var token = ''; 
+        console.log("The code is" + code + "!");
 
-var profile = rk_apiCall( 'https://api.runkeeper.com/user/', code, 'application/vnd.com.runkeeper.User+json', profileLoaded );
-	
-	function rk_apiCall( url, access_token, type, callback ){
-	
-		function setHeader(xhr) {
-			xhr.setRequestHeader( 'Authorization', 'Bearer ' + access_token );
-			xhr.setRequestHeader( 'Accept', type );
-		}
-		
-		$.ajax( {
-			url: 		url,
-			type: 		'GET',
-			dataType: 	'json',
-			success: 	function(data) { console.log(data); },
-			error: 		function(data) { console.log("Error!"); },
-			beforeSend: setHeader,
-			xhrFields: {
-	      		withCredentials: true
-	      	}
-		});
-	}
+
+        if( code != null && code != 'null') {
+            console.log('in if code is ' + code)
+            $.ajax({
+                url: 'https://runkeeper.com/apps/token?client_id=e92f86c2e11d4237b801a9af9d733894&grant_type=authorization_code&client_secret=e4da74ab4eae4edb8f997b1b8140038f&redirect_uri=http://danmunz.github.io/street-run/&code=' + code,
+                type: 'POST',
+                dataType: 'json',
+               success: function(data) { 
+                
+                
+                    console.log(data); 
+                    token = data['access_token']; 
+                    
+                    $.ajax( {
+                        url:        url,
+                        type:       'GET',
+                        dataType:   'json',
+                        success:    function(data) { console.log(data); console.log('in success'); profileLoaded(); },
+                        error:      function(data) { console.log("Error!"); },
+                        beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.User+json');},
+                        xhrFields: {
+                            withCredentials: true
+                        }
+                    });
+                }
+            })
+        }
 	
 
 	function profileLoaded(){
