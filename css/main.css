@@ -287,20 +287,20 @@ only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
 	/* Force table to not be like tables anymore */
-	table, thead, tbody, th, td, tr { 
+	#activities table, #activities thead, #activities tbody, #activities th, #activities td, #activities tr { 
 		display: block; 
 	}
 	
 	/* Hide table headers (but not display: none;, for accessibility) */
-	thead tr { 
+	#activities thead tr { 
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
 	}
 	
-	tr { border: 1px solid #ccc; }
+	#activities tr { border: 1px solid #ccc; }
 	
-	td { 
+	#activities td { 
 		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 
@@ -308,7 +308,7 @@ only screen and (max-width: 760px),
 		padding-left: 50%; 
 	}
 	
-	td:before { 
+	#activities td:before { 
 		/* Now like a table header */
 		position: absolute;
 		/* Top/left values mimic padding */
@@ -322,10 +322,10 @@ only screen and (max-width: 760px),
 	/*
 	Label the data
 	*/
-	td:nth-of-type(1):before { content: "Type"; }
-	td:nth-of-type(2):before { content: "Date"; }
-	td:nth-of-type(3):before { content: "Dist"; }
-	td:nth-of-type(4):before { content: "Cals"; }
+	#activities td:nth-of-type(1):before { content: "Type"; }
+	#activities td:nth-of-type(2):before { content: "Date"; }
+	#activities td:nth-of-type(3):before { content: "Dist"; }
+	#activities td:nth-of-type(4):before { content: "Cals"; }
 }
 
 
