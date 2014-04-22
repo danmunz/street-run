@@ -31,11 +31,21 @@
 	<div id="main">
 		
 		<div id="activities">
-		
-		<ol class="listing">
+				
+		<table>
+			<thead>
+			<tr>
+				<th>You went</th>
+				<th>On</th>
+				<th>For</th>
+				<th>And it took</th>
+			</tr>
+			</thead>
 			
-		</ol>
-		
+			<tbody class="activities_data">
+			</tbody>
+		</table>
+				
 		</div>
 		
 		
@@ -108,7 +118,7 @@ $( document ).ready(function() {
 		console.log(activities);
 		
 		$.each(activities, function( i, event){
-		$('.listing').append('<li>'+event.type+'</li>');
+		$('.activities_data').append('<tr><td>'+event.type+'</td><td>'+event.start_time+'</td><td>'+event.total_distance+'</td><td>'+event.duration'</td></tr>');
 		});		
 	
 	}
