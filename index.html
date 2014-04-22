@@ -210,12 +210,16 @@ $( document ).ready(function() {
 		var day = parts[0].replace(",","");
 		var time = parts[4].split(":");
 		var hours = parseInt(time[0]);
-			if (hours > 12){
-				hours = hours - 12;
-			};		
-		var mins = time[1];			
+		var mins = parseInt(time[1]);
+		var ampm = "am";
 		
-		return(parts[2]+' '+parts[1]+' '+parts[3]);
+		if (mins > 30){hours++;}
+		
+		if (hours > 11){ampm = "pm"}
+
+		if (hours > 12){hours = hours - 12;}
+		
+		return(parts[2]+' '+parts[1]+' around '+hours+ampm);
 		
 		}
 		
