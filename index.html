@@ -72,7 +72,12 @@ $( document ).ready(function() {
                         url:        get_url,
                         type:       'GET',
                         dataType:   'json',
-                        success:    function(data) { console.log(data); console.log('in success'); profileLoaded(); },
+                        success:    function(data) {
+                        data.items.each( obj, function( key, value ) {
+						  console.log( key + ": " + value );
+						});
+                        profileLoaded();
+                        },
                         error:      function(data) { console.log("Error!"); },
                         beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivityFeed+json');},
                         xhrFields: {
