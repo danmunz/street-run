@@ -137,6 +137,8 @@
 					var starttime = moment(event.start_time, "ddd, D MMM YYYY HH:mm:ss");
 					event.start_time = starttime;
 					console.log(event.start_time.fromNow());
+					console.log(event.start_time.format("dddd, MMMM DD at h:m"));
+
 
 				});				
 		
