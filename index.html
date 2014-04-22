@@ -96,6 +96,7 @@ $( document ).ready(function() {
                         success:    function(data) {
 	                        $.each(data.items, function( i, event){
 							  console.log( "Activity " + i + " had a duration of " + event.duration );
+							  dateTrim(event.start_time);
 							  activities.push(event);							
 							});
                         profileLoaded();
@@ -202,6 +203,20 @@ $( document ).ready(function() {
 		    return decodeURI(
 		        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
 		    );
+		}
+		
+		function dateTrim(date){
+		var parts = date.split(" ");
+		var day = parts[0].replace(",","");
+		var time = parts[5].split(":");
+		var hours = parseInt(time[0]);
+			if (hours > 12){
+				hours = hours - 12;
+			};		
+		var mins = time[1];			
+		
+		return(parts[2]+' '+parts[1]+' '+parts[3]);
+		
 		}
 		
 					
