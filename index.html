@@ -49,9 +49,6 @@
 		
 $( document ).ready(function() {
 
-		var activities = [];
-		var points = [];
-
 
         var code = getURLParameter('code');
         var get_url = 'https://api.runkeeper.com/fitnessActivities/';
@@ -75,7 +72,7 @@ $( document ).ready(function() {
                         url:        get_url,
                         type:       'GET',
                         dataType:   'json',
-                        success:    function(data) { activities.push(data); console.log(activities);},
+                        success:    function(data) { console.log(data); console.log('in success'); profileLoaded(); },
                         error:      function(data) { console.log("Error!"); },
                         beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivityFeed+json');},
                         xhrFields: {
