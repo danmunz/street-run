@@ -106,7 +106,6 @@
 								$.each(data.items, function (i, event) {
 									console.log("Activity " + i + " had a duration of " + event.duration);
 									activities.push(event);
-//									activities[i].start_time = dateTrim(event.start_time);
 								});
 								profileLoaded();
 							},
@@ -133,7 +132,7 @@
 				console.log(activities);
 				
 				$.each(activities, function (i, event) { // Trim the untracked activities
-					if (event.has_path == false){
+					if (event.has_path = false){
 						activities.splice(i,1);
 					}								
 				});				
