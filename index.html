@@ -71,8 +71,8 @@ $( document ).ready(function() {
                         dataType:   'json',
                         success:    function(data) {
                         	console.log(data);
-	                        $.each(data.items, function( i, l ){
-							  console.log( "Index #" + i + ": " + l );
+	                        $.each(data.items, function( i, event){
+							  console.log( "Activity " + i + " had a duration of " + event.duration );
 							});
                         profileLoaded();
                         },
