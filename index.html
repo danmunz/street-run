@@ -133,7 +133,7 @@
 				console.log(activities);
 				
 				$.each(activities, function (i, event) { // Trim the untracked activities
-					if (event.is_tracked == false){
+					if (event.has_path == false){
 						activities.splice(i,1);
 					}								
 				});				
