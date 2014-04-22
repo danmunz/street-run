@@ -300,12 +300,11 @@ only screen and (max-width: 760px),
 	
 	#activities tr { border: 1px solid #ccc; }
 	
-	#activities td { 
-		/* Behave  like a "row" */
+#activities table td, th { 		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 
 		position: relative;
-		padding-left: 50%; 
+		padding-left: 50%;
 	}
 	
 	#activities td:before { 
