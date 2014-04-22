@@ -47,6 +47,9 @@
 		var i = 0;
 		var interval = null;
 		
+		var activities = [];
+		var geopoints = [];
+		
 $( document ).ready(function() {
 
 
@@ -70,9 +73,9 @@ $( document ).ready(function() {
                         type:       'GET',
                         dataType:   'json',
                         success:    function(data) {
-                        	console.log(data);
 	                        $.each(data.items, function( i, event){
 							  console.log( "Activity " + i + " had a duration of " + event.duration );
+							  activities.push(event);							
 							});
                         profileLoaded();
                         },
@@ -89,6 +92,9 @@ $( document ).ready(function() {
 
 	function profileLoaded(){
 		alert("HEYOOOO!");
+		console.log("Okay, here are all your activities:");
+		console.log(activities);
+
 	}
 
 
