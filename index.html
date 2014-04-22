@@ -96,8 +96,10 @@ $( document ).ready(function() {
                         success:    function(data) {
 	                        $.each(data.items, function( i, event){
 							  console.log( "Activity " + i + " had a duration of " + event.duration );
-							  activities.push(event);
-							  activities[i].start_time = dateTrim(event.start_time);							
+							  if (event.has_path){
+								  activities.push(event);
+								  activities[i].start_time = dateTrim(event.start_time);
+							  }							
 							});
                         profileLoaded();
                         },
