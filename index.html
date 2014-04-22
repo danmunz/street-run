@@ -208,7 +208,7 @@ $( document ).ready(function() {
 		function dateTrim(date){
 		var parts = date.split(" ");
 		var day = parts[0].replace(",","");
-		var time = parts[5].split(":");
+		var time = parts[4].split(":");
 		var hours = parseInt(time[0]);
 			if (hours > 12){
 				hours = hours - 12;
