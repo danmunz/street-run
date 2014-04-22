@@ -103,7 +103,7 @@ html{
 
 
 
-#main {
+#slideshow_holder {
     position: relative;
     margin: 0 auto;
     width: 50%;
@@ -114,7 +114,7 @@ html{
 	width: 100%;
 }
 
-#main .after {
+#slideshow_holder .after {
     position: absolute;
     top: 0;
     left: 0;
@@ -130,7 +130,7 @@ html{
     line-height: 8em;
 }
 
-#main:hover .after {
+#slideshow_holder:hover .after {
     display: block;
     background: rgba(0, 0, 0, .6);
 }
