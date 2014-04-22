@@ -74,7 +74,7 @@ $( document ).ready(function() {
                         dataType:   'json',
                         success:    function(data) { console.log(data); console.log('in success'); profileLoaded(); },
                         error:      function(data) { console.log("Error!"); },
-                        beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.User+json');},
+                        beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivity+json');},
                         xhrFields: {
                             withCredentials: true
                         }
