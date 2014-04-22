@@ -67,6 +67,7 @@
 	<script src="js/plugins.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/moment-with-langs.js"></script>
+	<script src="js/underscore.js"></script>
 
 	<script src="js/recent-run.js"></script>
 
@@ -131,11 +132,7 @@
 				console.log("Okay, here are all your activities:");
 				console.log(activities);
 				
-				$.each(activities, function (i, event) { // Trim the untracked activities
-					if (event.has_path = false){
-						activities.splice(i,1);
-					}								
-				});				
+				activities = _.filter(activities, function(event){ return event.has_path == true; });
 
 				$.each(activities, function (i, event) { // Clean up the activities
 				
