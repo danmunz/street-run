@@ -2,238 +2,267 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+
+<body>
+	<!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <p><a href="https://runkeeper.com/apps/authorize?response_type=code&client_id=e92f86c2e11d4237b801a9af9d733894&redirect_uri=http://danmunz.github.io/street-run/">Click here to authorize.</a></p>
+	<!-- Add your site or application content here -->
+	<p><a href="https://runkeeper.com/apps/authorize?response_type=code&client_id=e92f86c2e11d4237b801a9af9d733894&redirect_uri=http://danmunz.github.io/street-run/">Click here to authorize.</a>
+	</p>
 
-<header>
-<h1>Run your run!</h1>
-</header>
-		
+	<header>
+		<h1>Run your run!</h1>
+	</header>
+
 	<div id="main">
-		
+
 		<div id="activities">
-				
-		<table>
-			<thead>
-			<tr>
-				<th>You went</th>
-				<th>On</th>
-				<th>For</th>
-				<th>And it took</th>
-			</tr>
-			</thead>
-			
-			<tbody class="activities_data">
-			</tbody>
-		</table>
-				
+
+			<table>
+				<thead>
+					<tr>
+						<th>You went</th>
+						<th>On</th>
+						<th>For</th>
+						<th>And it took</th>
+					</tr>
+				</thead>
+
+				<tbody class="activities_data">
+				</tbody>
+			</table>
+
 		</div>
-		
-		
+
+
 		<div id="slideshow_holder">
-		<img id="slideshow" width="600" height="600">
-		<div class="after">pause!</div>	
+			<img id="slideshow" width="600" height="600">
+			<div class="after">pause!</div>
 		</div>
 	</div>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-		
-		<script src="js/recent-run.js"></script>
-		
-		<script type="text/javascript"> //'Active' code
-		
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+		window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')
+	</script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+
+	<script src="js/recent-run.js"></script>
+
+	<script type="text/javascript">
+		//'Active' code
+
 		var images = [];
 		var i = 0;
 		var interval = null;
-		
+
 		var activities = [];
 		var geopoints = [];
-		
-$( document ).ready(function() {
+
+		$(document).ready(function () {
 
 
-        var code = getURLParameter('code');
-        var get_url = 'https://api.runkeeper.com/fitnessActivities/';
-        var token = ''; 
-        console.log("The code is: " + code);
+			var code = getURLParameter('code');
+			var get_url = 'https://api.runkeeper.com/fitnessActivities/';
+			var token = '';
+			console.log("The code is: " + code);
 
 
-        if( code != null && code != 'null') {
-            $.ajax({
-				url: 'https://runkeeper.com/apps/token?client_id=e92f86c2e11d4237b801a9af9d733894&grant_type=authorization_code&client_secret=e4da74ab4eae4edb8f997b1b8140038f&redirect_uri=http://danmunz.github.io/street-run/&code=' + code,
-				type: 'POST',
-                dataType: 'json',
-                success: function(data) { 
-                    console.log("Successfully authenticated! Here are the details: " + data); 
-                    token = data['access_token']; 
-                    
-                    $.ajax( {
-                        url:        get_url,
-                        type:       'GET',
-                        dataType:   'json',
-                        success:    function(data) {
-	                        $.each(data.items, function( i, event){
-							  console.log( "Activity " + i + " had a duration of " + event.duration );
-							  activities.push(event);
-							  activities[i].start_time = dateTrim(event.start_time);							
-							});
-                        profileLoaded();
-                        },
-                        
-                        error:      function(data) { console.log("Error!"); },
-                        beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivityFeed+json');},
-                        xhrFields: {
-                            withCredentials: true
-                        }
-                    });
-                }
-            })
-        }
-	
+			if (code != null && code != 'null') {
+				$.ajax({
+					url: 'https://runkeeper.com/apps/token?client_id=e92f86c2e11d4237b801a9af9d733894&grant_type=authorization_code&client_secret=e4da74ab4eae4edb8f997b1b8140038f&redirect_uri=http://danmunz.github.io/street-run/&code=' + code,
+					type: 'POST',
+					dataType: 'json',
+					success: function (data) {
+						console.log("Successfully authenticated! Here are the details: " + data);
+						token = data['access_token'];
 
-	function profileLoaded(){
-		alert("HEYOOOO!");
-		console.log("Okay, here are all your activities:");
-		console.log(activities);
-		
-		$.each(activities, function( i, event){
-		$('.activities_data').append('<tr><td>'+event.type+'</td><td>'+event.start_time+'</td><td>'+event.total_distance+'</td><td>'+event.duration+'</td></tr>');
-		});		
-	
-	}
+						$.ajax({
+							url: get_url,
+							type: 'GET',
+							dataType: 'json',
+							success: function (data) {
+								$.each(data.items, function (i, event) {
+									console.log("Activity " + i + " had a duration of " + event.duration);
+									activities.push(event);
+									activities[i].start_time = dateTrim(event.start_time);
+								});
+								profileLoaded();
+							},
+
+							error: function (data) {
+								console.log("Error!");
+							},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+								xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivityFeed+json');
+							},
+							xhrFields: {
+								withCredentials: true
+							}
+						});
+					}
+				})
+			}
 
 
+			function profileLoaded() {
+				alert("HEYOOOO!");
+				console.log("Okay, here are all your activities:");
+				console.log(activities);
 
-		function preload_images() {
-				
-			$.each(runpoints.features[0].geometry.coordinates[0], function(i, point) {
+				$.each(activities, function (i, event) {
+					$('.activities_data').append('<tr><td>' + event.type + '</td><td>' + event.start_time + '</td><td>' + event.total_distance + '</td><td>' + event.duration + '</td></tr>');
+				});
 
-				images[i] = new Image();
-				
-				var bearing = getBearing(point[1],point[0],runpoints.features[0].geometry.coordinates[0][i+2][1],runpoints.features[0].geometry.coordinates[0][i+2][0]);
-				
-				images[i].src = 'http://maps.googleapis.com/maps/api/streetview?size=600x600&location='+point[1]+','+point[0]+'&fov=90&heading='+bearing+'&pitch=10&sensor=false&key=AIzaSyBmgiINR9pEB3M7WAykSTceiO5uv4hJL4k';
-				
-				images[i].bearing = bearing;
-				images[i].lat = point[1];
-				images[i].lng = point[0];
-										
-				if (i>10){return false;}						
+			}
 
-			});
-		}
-		
-		preload_images();
-				
-		function cycle_images() {
-		    i = (i < 10) ? i + 1 : 0;
-		    
-		    document.getElementById('slideshow').src = images[i].src;
-//		    $('body').append(images[i].bearing + ': ' + images[i].lat + ',' + images[i].lng + '<br/>');
-		}
+
+
+			function preload_images() {
+
+				$.each(runpoints.features[0].geometry.coordinates[0], function (i, point) {
+
+					images[i] = new Image();
+
+					var bearing = getBearing(point[1], point[0], runpoints.features[0].geometry.coordinates[0][i + 2][1], runpoints.features[0].geometry.coordinates[0][i + 2][0]);
+
+					images[i].src = 'http://maps.googleapis.com/maps/api/streetview?size=600x600&location=' + point[1] + ',' + point[0] + '&fov=90&heading=' + bearing + '&pitch=10&sensor=false&key=AIzaSyBmgiINR9pEB3M7WAykSTceiO5uv4hJL4k';
+
+					images[i].bearing = bearing;
+					images[i].lat = point[1];
+					images[i].lng = point[0];
+
+					if (i > 10) {
+						return false;
+					}
+
+				});
+			}
+
+			preload_images();
+
+			function cycle_images() {
+				i = (i < 10) ? i + 1 : 0;
+
+				document.getElementById('slideshow').src = images[i].src;
+				//		    $('body').append(images[i].bearing + ': ' + images[i].lat + ',' + images[i].lng + '<br/>');
+			}
 
 			interval = setInterval(cycle_images, 60);
-			$('#main').hover(function() {
+			$('#main').hover(function () {
 				clearInterval(interval);
 				//console.log('cycle paused');
-				
-			}, function() {
+
+			}, function () {
 				interval = setInterval(cycle_images, 60);
 				//console.log('cycle continues');
 			});
-		
-										
+
+
 		}); //End of document.ready
-		</script>
-		
-		<script type="text/javascript">//Misc. mathematical functions
-		
-		function getBearing(lat1,lon1,lat2,lon2) {		
-		var dLon = (lon2-lon1).toRad();
-		var y = Math.sin(dLon) * Math.cos(lat2);
-		var x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
-		var brng = Math.atan2(y, x).toDeg();
-//		if (brng<0){
-//			brng = brng.mod(360);
-//		}
-		return brng;		
+	</script>
+
+	<script type="text/javascript">
+		//Misc. mathematical functions
+
+		function getBearing(lat1, lon1, lat2, lon2) {
+			var dLon = (lon2 - lon1).toRad();
+			var y = Math.sin(dLon) * Math.cos(lat2);
+			var x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+			var brng = Math.atan2(y, x).toDeg();
+			//		if (brng<0){
+			//			brng = brng.mod(360);
+			//		}
+			return brng;
 		}
 
 		/** Converts numeric degrees to radians */
-		if (typeof(Number.prototype.toRad) === "undefined") {
-			Number.prototype.toRad = function() {
+		if (typeof (Number.prototype.toRad) === "undefined") {
+			Number.prototype.toRad = function () {
 				return this * Math.PI / 180;
 			}
 		}
 
 		/** Converts radians to numeric (signed) degrees */
-			if (typeof Number.prototype.toDeg == 'undefined') {
-			Number.prototype.toDeg = function() {
+		if (typeof Number.prototype.toDeg == 'undefined') {
+			Number.prototype.toDeg = function () {
 				return this * 180 / Math.PI;
 			}
 		}
-		
-		Number.prototype.mod = function(n) {
-		return ((this%n)+n)%n;
-		}
-		
-		function getURLParameter(name) {
-		    return decodeURI(
-		        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-		    );
-		}
-		
-		function dateTrim(date){
-		var parts = date.split(" ");
-		var day = parts[0].replace(",","");
-		var time = parts[4].split(":");
-		var hours = parseInt(time[0]);
-		var mins = parseInt(time[1]);
-		var ampm = "am";
-		
-		if (mins > 30){hours++;}
-		
-		if (hours > 11){ampm = "pm"}
 
-		if (hours > 12){hours = hours - 12;}
-		
-		return(parts[2]+' '+parts[1]+' around '+hours+ampm);
-		
+		Number.prototype.mod = function (n) {
+			return ((this % n) + n) % n;
 		}
-		
-					
-		</script>
-		
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>
-    </body>
+
+		function getURLParameter(name) {
+			return decodeURI(
+				(RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
+			);
+		}
+
+		function dateTrim(date) {
+			var parts = date.split(" ");
+			var day = parts[0].replace(",", "");
+			var time = parts[4].split(":");
+			var hours = parseInt(time[0]);
+			var mins = parseInt(time[1]);
+			var ampm = "am";
+
+			if (mins > 30) {
+				hours++;
+			}
+
+			if (hours > 11) {
+				ampm = "pm"
+			}
+
+			if (hours > 12) {
+				hours = hours - 12;
+			}
+
+			return (parts[2] + ' ' + parts[1] + ' around ' + hours + ampm);
+
+		}
+	</script>
+
+	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+	<script>
+		(function (b, o, i, l, e, r) {
+			b.GoogleAnalyticsObject = l;
+			b[l] || (b[l] =
+				function () {
+					(b[l].q = b[l].q || []).push(arguments)
+				});
+			b[l].l = +new Date;
+			e = o.createElement(i);
+			r = o.getElementsByTagName(i)[0];
+			e.src = '//www.google-analytics.com/analytics.js';
+			r.parentNode.insertBefore(e, r)
+		}(window, document, 'script', 'ga'));
+		ga('create', 'UA-XXXXX-X');
+		ga('send', 'pageview');
+	</script>
+</body>
+
 </html>
