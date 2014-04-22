@@ -106,7 +106,7 @@
 								$.each(data.items, function (i, event) {
 									console.log("Activity " + i + " had a duration of " + event.duration);
 									activities.push(event);
-									activities[i].start_time = dateTrim(event.start_time);
+//									activities[i].start_time = dateTrim(event.start_time);
 								});
 								profileLoaded();
 							},
@@ -132,7 +132,14 @@
 				console.log("Okay, here are all your activities:");
 				console.log(activities);
 
-				$.each(activities, function (i, event) {
+				$.each(activities, function (i, event) { // Clean up the activities
+				
+					var starttime = moment(event.start_time, "ddd, D MMM YYYY");
+
+				});				
+		
+
+				$.each(activities, function (i, event) { //Drop 'em in the dom!
 					$('.activities_data').append('<tr><td>' + event.type + '</td><td>' + event.start_time + '</td><td>' + event.total_distance + '</td><td>' + event.duration + '</td></tr>');
 				});
 
@@ -246,11 +253,7 @@
 
 		}
 		
-	function runTime(seconds){
-		var minutes = Math.floor(seconds / 60);
-		var seconds = seconds - minutes * 60;
-		
-	}
+
 	</script>
 
 	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
