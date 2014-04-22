@@ -131,11 +131,18 @@
 				alert("HEYOOOO!");
 				console.log("Okay, here are all your activities:");
 				console.log(activities);
+				
+				$.each(activities, function (i, event) { // Trim the untracked activities
+					if (event.is_tracked == false){
+						activities.splice(i,1);
+					}								
+				});				
 
 				$.each(activities, function (i, event) { // Clean up the activities
 				
 					var starttime = moment(event.start_time, "ddd, D MMM YYYY HH:mm:ss");
-					event.start_time = starttime.format("MMM DD h:mma");					
+					event.start_time = starttime.format("MMM DD h:mma");
+					event.ago = starttime.fromNow();					
 				});				
 		
 
