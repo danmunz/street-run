@@ -53,19 +53,16 @@ $( document ).ready(function() {
         var code = getURLParameter('code');
         var get_url = 'https://api.runkeeper.com/fitnessActivities/';
         var token = ''; 
-        console.log("The code is" + code + "!");
+        console.log("The code is: " + code);
 
 
         if( code != null && code != 'null') {
-            console.log('in if code is ' + code)
             $.ajax({
-                url: 'https://runkeeper.com/apps/token?client_id=e92f86c2e11d4237b801a9af9d733894&grant_type=authorization_code&client_secret=e4da74ab4eae4edb8f997b1b8140038f&redirect_uri=http://danmunz.github.io/street-run/&code=' + code,
-                type: 'POST',
+				url: 'https://runkeeper.com/apps/token?client_id=e92f86c2e11d4237b801a9af9d733894&grant_type=authorization_code&client_secret=e4da74ab4eae4edb8f997b1b8140038f&redirect_uri=http://danmunz.github.io/street-run/&code=' + code,
+				type: 'POST',
                 dataType: 'json',
-               success: function(data) { 
-                
-                
-                    console.log(data); 
+                success: function(data) { 
+                    console.log("Successfully authenticated! Here are the details: " + data); 
                     token = data['access_token']; 
                     
                     $.ajax( {
@@ -73,8 +70,9 @@ $( document ).ready(function() {
                         type:       'GET',
                         dataType:   'json',
                         success:    function(data) {
+                        	console.log(data);
 	                        $.each(data.items, function( i, l ){
-							  console.log( "Index #" + i[0] + ": " + l );
+							  console.log( "Index #" + i + ": " + l );
 							});
                         profileLoaded();
                         },
