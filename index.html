@@ -51,7 +51,7 @@ $( document ).ready(function() {
 
 
         var code = getURLParameter('code');
-        var url = 'https://api.runkeeper.com/user/fitnessActivities/';
+        var get_url = 'https://api.runkeeper.com/fitnessActivities/';
         var token = ''; 
         console.log("The code is" + code + "!");
 
@@ -69,12 +69,12 @@ $( document ).ready(function() {
                     token = data['access_token']; 
                     
                     $.ajax( {
-                        url:        url,
+                        url:        get_url,
                         type:       'GET',
                         dataType:   'json',
                         success:    function(data) { console.log(data); console.log('in success'); profileLoaded(); },
                         error:      function(data) { console.log("Error!"); },
-                        beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivity+json');},
+                        beforeSend: function(xhr){xhr.setRequestHeader( 'Authorization', 'Bearer ' + token ); xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivityFeed+json');},
                         xhrFields: {
                             withCredentials: true
                         }
