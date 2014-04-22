@@ -66,6 +66,7 @@
 	</script>
 	<script src="js/plugins.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/moment-with-langs.js"></script>
 
 	<script src="js/recent-run.js"></script>
 
@@ -244,6 +245,12 @@
 			return (parts[2] + ' ' + parts[1] + ' around ' + hours + ampm);
 
 		}
+		
+	function runTime(seconds){
+		var minutes = Math.floor(seconds / 60);
+		var seconds = seconds - minutes * 60;
+		
+	}
 	</script>
 
 	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
