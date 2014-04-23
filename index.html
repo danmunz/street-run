@@ -137,7 +137,7 @@
 				$.each(activities, function (i, event) { // Clean up the activities				
 //					var starttime = moment(event.start_time, "ddd, D MMM YYYY HH:mm:ss");
 					event.start_time = moment(event.start_time, "ddd, D MMM YYYY HH:mm:ss").format("MMM DD h:mma");
-					event.ago = starttime.fromNow();
+					event.ago = event.start_time.fromNow();
 					event.total_distance = Math.round((event.total_distance * 0.000621371) * 100) / 100;
 //					event.duration = 
 				});
