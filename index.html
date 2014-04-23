@@ -134,12 +134,12 @@
 				
 				activities = _.filter(activities, function(event){ return event.has_path == true; });
 
-				$.each(activities, function (i, event) { // Clean up the activities
-				
+				$.each(activities, function (i, event) { // Clean up the activities				
 					var starttime = moment(event.start_time, "ddd, D MMM YYYY HH:mm:ss");
 					event.start_time = starttime.format("MMM DD h:mma");
-					event.ago = starttime.fromNow();					
-				});				
+					event.ago = starttime.fromNow();
+					event.total_distance = event.total_distance * 0.000621371;
+				});
 		
 
 				$.each(activities, function (i, event) { //Drop 'em in the dom!
@@ -231,31 +231,6 @@
 				(RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
 			);
 		}
-
-		function dateTrim(date) {
-			var parts = date.split(" ");
-			var day = parts[0].replace(",", "");
-			var time = parts[4].split(":");
-			var hours = parseInt(time[0]);
-			var mins = parseInt(time[1]);
-			var ampm = "am";
-
-			if (mins > 30) {
-				hours++;
-			}
-
-			if (hours > 11) {
-				ampm = "pm"
-			}
-
-			if (hours > 12) {
-				hours = hours - 12;
-			}
-
-			return (parts[2] + ' ' + parts[1] + ' around ' + hours + ampm);
-
-		}
-		
 
 	</script>
 
