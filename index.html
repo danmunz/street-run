@@ -138,7 +138,7 @@
 					var starttime = moment(event.start_time, "ddd, D MMM YYYY HH:mm:ss");
 					event.start_time = starttime.format("MMM DD h:mma");
 					event.ago = starttime.fromNow();
-					event.total_distance = event.total_distance * 0.000621371;
+					event.total_distance = Math.round((event.total_distance * 0.000621371) * 100) / 100;
 				});
 		
 
