@@ -235,18 +235,20 @@
 			);
 		}
 		
-		function makeHumanTime(duration){
-			duration = moment.duration(event.duration, 'seconds')
-			var hours = duration.get('hours');
-			var mins = duration.get('minutes');
-			var secs = duration.get('seconds');
+		function makeHumanTime(duration_in_secs){
+		
+			var starting_duration = moment.duration(duration_in_secs, 'seconds')
+			var hours = starting_duration.get('hours');
+			var mins = starting_duration.get('minutes');
+			var secs = starting_duration.get('seconds');
 			
 			var human_duration = "";
 			
 			if (hours > 0){human_duration = human_duration + hours + ":";}
-			human_duration = human_duration + mins + ":" + secs;
-			return human_duration;
 			
+			human_duration = human_duration + mins + ":" + secs;
+			
+			return human_duration;
 		}
 
 	</script>
