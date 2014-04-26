@@ -139,7 +139,7 @@
 				
 				$.each(activities, function (i, event) { // Clean up the activities				
 					event.ago = moment(event.start_time, "ddd, D MMM YYYY hh:mm:ss").fromNow();
-					event.start_time = moment(event.start_time, "ddd, D MMM YYYY hh:mm:ss").format("MMMM DD" + " at " + "h:mma");
+					event.start_time = moment(event.start_time, "ddd, D MMM YYYY hh:mm:ss").format("MMMM DD [at] h:mma");
 					event.total_distance = Math.round((event.total_distance * 0.000621371) * 100) / 100;
 					event.duration = makeHumanTime(event.duration);
 				});
