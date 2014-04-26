@@ -218,12 +218,12 @@
 				cycle_images();
 			}
 
+
 			function cycle_images() {
 				i = (i < 200) ? i + 1 : 0;
-
 				document.getElementById('slideshow').src = images[i].src;
-				//		    $('body').append(images[i].bearing + ': ' + images[i].lat + ',' + images[i].lng + '<br/>');
 			}
+
 
 			interval = setInterval(cycle_images, 60);
 			$('#main').hover(function () {
