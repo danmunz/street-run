@@ -167,7 +167,7 @@
 					images[i].lat = point[1];
 					images[i].lng = point[0];
 
-					if (i > 10) {
+					if (i > 2) {
 						return false;
 					}
 
@@ -177,7 +177,7 @@
 			preload_images();
 
 			function cycle_images() {
-				i = (i < 10) ? i + 1 : 0;
+				i = (i < 2) ? i + 1 : 0;
 
 				document.getElementById('slideshow').src = images[i].src;
 				//		    $('body').append(images[i].bearing + ': ' + images[i].lat + ',' + images[i].lng + '<br/>');
