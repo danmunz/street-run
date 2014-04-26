@@ -145,11 +145,10 @@
 								dataType: 'json',
 								success: function (data) {
 									console.log("It worked! Retrieving points...");
-									console.log(data);
-									$.each(data.items, function (i, point) {
-										geopoints.push(event);
+									$.each(data.path, function (i, point) {
+										geopoints.push(point);
 									});
-									profileLoaded();
+									console.log(geopoints);									
 								},
 	
 								error: function (data) {
