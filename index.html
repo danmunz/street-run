@@ -139,6 +139,10 @@
 					dataType: 'json',
 					success: function (data) {
 						console.log("Successfully authenticated! Here are the details: " + data);
+						$.each(data.items, function (i, point) {
+							console.log(point);
+						});
+						
 
 						$.ajax({
 							url: get_url,
