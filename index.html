@@ -198,17 +198,17 @@
 
 			function preload_images() {
 
-				$.each(geopoints, function (i, point) {
+				$.each(runpoints.features[0].geometry.coordinates[0], function (i, point) {
 
 					images[i] = new Image();
 
-					var bearing = getBearing(point.latitude, point.longitude, point[i+1].latitude, point[i+1].longitude);
+					var bearing = getBearing(point[1], point[0], runpoints.features[0].geometry.coordinates[0][i + 2][1], runpoints.features[0].geometry.coordinates[0][i + 2][0]);
 
-					images[i].src = 'http://maps.googleapis.com/maps/api/streetview?size=600x600&location=' + point.latitude + ',' + point.longitude + '&fov=90&heading=' + bearing + '&pitch=10&sensor=false&key=AIzaSyBmgiINR9pEB3M7WAykSTceiO5uv4hJL4k';
+					images[i].src = 'http://maps.googleapis.com/maps/api/streetview?size=600x600&location=' + point[1] + ',' + point[0] + '&fov=90&heading=' + bearing + '&pitch=10&sensor=false&key=AIzaSyBmgiINR9pEB3M7WAykSTceiO5uv4hJL4k';
 
 					images[i].bearing = bearing;
-					images[i].lat = point.latitude;
-					images[i].lng = point.longitude;
+					images[i].lat = point[1];
+					images[i].lng = point[0];
 
 					if (i > 2) {
 						return false;
