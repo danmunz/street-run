@@ -221,16 +221,13 @@
 
 			function cycle_images() {
 				i = (i < 200) ? i + 1 : 0;
-				document.getElementById('#slideshow').src = images[i].src;
+				$('#slideshow').src = images[i].src;
 			}
 
 			$('#slideshow').hover(function () {
 				clearInterval(interval);
-				//console.log('cycle paused');
-
 			}, function () {
 				interval = setInterval(cycle_images, 60);
-				//console.log('cycle continues');
 			});
 
 
