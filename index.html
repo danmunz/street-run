@@ -148,7 +148,8 @@
 									$.each(data.path, function (i, point) {
 										geopoints.push(point);
 									});
-									console.log(geopoints);									
+									console.log(geopoints);	
+									preload_images();
 								},
 	
 								error: function (data) {
@@ -217,8 +218,6 @@
 
 				});
 			}
-
-			preload_images();
 
 			function cycle_images() {
 				i = (i < 2) ? i + 1 : 0;
