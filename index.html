@@ -203,8 +203,7 @@
 
 					images[i] = new Image();
 
-//					var bearing = getBearing(point[1], point[0], runpoints.features[0].geometry.coordinates[0][i + 2][1], runpoints.features[0].geometry.coordinates[0][i + 2][0]);
-					var bearing = 90;
+					var bearing = getBearing(point.latitude, point.longitude, point[i+1].latitude, point[i+1].longitude, );
 					
 					images[i].src = 'http://maps.googleapis.com/maps/api/streetview?size=600x600&location=' + point.latitude + ',' + point.longitude + '&fov=90&heading=' + bearing + '&pitch=10&sensor=false&key=AIzaSyBmgiINR9pEB3M7WAykSTceiO5uv4hJL4k';
 
@@ -212,15 +211,17 @@
 					images[i].lat = point.latitude;
 					images[i].lng = point.longitude;
 
-					if (i > 2) {
+					if (i > 200) {
 						return false;
 					}
 
 				});
+				
+				cycle_images();
 			}
 
 			function cycle_images() {
-				i = (i < 2) ? i + 1 : 0;
+				i = (i < 200) ? i + 1 : 0;
 
 				document.getElementById('slideshow').src = images[i].src;
 				//		    $('body').append(images[i].bearing + ': ' + images[i].lat + ',' + images[i].lng + '<br/>');
