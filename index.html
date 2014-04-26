@@ -203,10 +203,8 @@
 
 					images[i] = new Image();
 					
-					var bearing = getBearing(point.latitude, point.longitude, point[i].latitude, point[i].longitude);
-					
-					console.log(bearing);
-						
+					var bearing = getBearing(point.latitude, point.longitude, geopoints[i+1].latitude, geopoints[i+1].longitude);
+											
 					images[i].src = 'http://maps.googleapis.com/maps/api/streetview?size=600x600&location=' + point.latitude + ',' + point.longitude + '&fov=90&heading=' + bearing + '&pitch=10&sensor=false&key=AIzaSyBmgiINR9pEB3M7WAykSTceiO5uv4hJL4k';
 				});
 				
