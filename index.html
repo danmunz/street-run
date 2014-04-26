@@ -203,13 +203,7 @@
 
 					images[i] = new Image();
 					
-					var bearing = 0;
-					
-					if (i < geopoints.length-1){
-						var bearing = getBearing(point.latitude, point.longitude, point[i+1].latitude, point[i+1].longitude);
-					}else{
-						var bearing = 0;
-					}
+					var bearing = getBearing(point.latitude, point.longitude, point.latitude, point.longitude);
 					
 					console.log(bearing);
 						
