@@ -141,12 +141,12 @@
 					event.ago = moment(event.start_time, "ddd, D MMM YYYY hh:mm:ss").fromNow();
 					event.start_time = moment(event.start_time, "ddd, D MMM YYYY hh:mm:ss").format("MMM DD h:mma");
 					event.total_distance = Math.round((event.total_distance * 0.000621371) * 100) / 100;
-//					event.duration = 
+					event.duration = moment(event.duration, "ss").format("hh:mm:ss");
 				});
 		
 
 				$.each(activities, function (i, event) { //Drop 'em in the dom!
-					$('.activities_data').append('<tr><td>' + event.type + '</td><td>' + event.start_time + '</td><td>' + event.total_distance + '</td><td>' + event.duration + '</td></tr>');
+					$('.activities_data').append('<tr><td>' + event.type + '</td><td>' + event.start_time + '</td><td>' + event.total_distance + 'mi</td><td>' + event.duration + '</td></tr>');
 				});
 
 			}
