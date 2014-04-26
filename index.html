@@ -215,7 +215,8 @@
 
 				});
 				
-				cycle_images();
+				interval = setInterval(cycle_images, 60);
+				
 			}
 
 			function cycle_images() {
@@ -223,9 +224,6 @@
 				document.getElementById('#slideshow').src = images[i].src;
 			}
 
-
-			interval = setInterval(cycle_images, 60);
-			
 			$('#slideshow').hover(function () {
 				clearInterval(interval);
 				//console.log('cycle paused');
