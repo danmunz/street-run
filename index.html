@@ -243,11 +243,23 @@
 			var secs = starting_duration.get('seconds');
 			
 			var human_duration = "";
+									
+			if (hours > 0){
+				if (minutes < 10){
+					human_duration = human_duration + hours + ":0" + mins;
+				}else{
+					human_duration = human_duration + hours + ":" + mins;					
+				}						
+			}else{
+				human_duration = human_duration + mins;				
+			}
 			
-			if (hours > 0){human_duration = human_duration + hours + ":";}
-			
-			human_duration = human_duration + mins + ":" + secs;
-			
+			if (secs > 9){
+				human_duration = human_duration + ":" + secs;
+			}else{
+				human_duration = human_duration + ":0" + secs;
+			}
+						
 			return human_duration;
 		}
 
