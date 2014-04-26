@@ -141,7 +141,7 @@
 					event.ago = moment(event.start_time, "ddd, D MMM YYYY hh:mm:ss").fromNow();
 					event.start_time = moment(event.start_time, "ddd, D MMM YYYY hh:mm:ss").format("MMM DD h:mma");
 					event.total_distance = Math.round((event.total_distance * 0.000621371) * 100) / 100;
-					event.duration_human = moment.duration(event.duration, 'seconds').get('hours')+":"+moment.duration(event.duration, 'seconds').get('minutes')+":"+moment.duration(event.duration, 'seconds').get('seconds');
+					event.duration = makeHumanTime(event.duration);
 				});
 		
 
@@ -233,6 +233,20 @@
 			return decodeURI(
 				(RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
 			);
+		}
+		
+		function makeHumanTime(duration){
+			duration = moment.duration(event.duration, 'seconds')
+			var hours = duration.get('hours');
+			var mins = duration.get('minutes');
+			var secs = duration.get('seconds');
+			
+			var human_duration = "";
+			
+			if (hours > 0){human_duration = human_duration + hours + ":";}
+			human_duration = human_duration + mins + ":" + secs;
+			return human_duration;
+			
 		}
 
 	</script>
