@@ -88,8 +88,11 @@
 			var get_url = 'https://api.runkeeper.com/fitnessActivities/';
 			var token = '';
 			console.log("The code is: " + code);
+			getActivities(code, get_url, token);
 
 
+		
+		function getActivities(code, get_url, token){
 			if (code != null && code != 'null') {
 				$.ajax({
 					url: 'https://runkeeper.com/apps/token?client_id=e92f86c2e11d4237b801a9af9d733894&grant_type=authorization_code&client_secret=e4da74ab4eae4edb8f997b1b8140038f&redirect_uri=http://danmunz.github.io/street-run/&code=' + code,
@@ -126,7 +129,7 @@
 					}
 				})
 			}
-
+		}
 
 			function profileLoaded() {
 				activities = _.filter(activities, function(event){ return event.has_path == true; });
