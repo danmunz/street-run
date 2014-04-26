@@ -104,8 +104,9 @@
 							type: 'GET',
 							dataType: 'json',
 							success: function (data) {
+								console.log("It worked! Retrieving activities...");
+								console.log(data);
 								$.each(data.items, function (i, event) {
-									console.log("Activity " + i + " had a duration of " + event.duration);
 									activities.push(event);
 								});
 								profileLoaded();
@@ -128,11 +129,9 @@
 
 
 			function profileLoaded() {
-				console.log("It worked! Retrieving activities...");
-				
 				activities = _.filter(activities, function(event){ return event.has_path == true; });
 
-				console.log("Okay, here are all your activities:");				
+				console.log("Okay, here's all the activities that have a path.");				
 				console.log(activities);
 				
 				$.each(activities, function (i, event) { // Clean up the activities				
