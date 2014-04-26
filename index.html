@@ -138,7 +138,9 @@
 					type: 'POST',
 					dataType: 'json',
 					success: function (data) {
-						console.log("Successfully authenticated! Here are the details: " + data);
+						alert("Successfully authenticated! Here are the details: " + data);
+						token = data['access_token'];
+						console.log("Token is" + token);
 
 						$.ajax({
 							url: get_url,
@@ -154,7 +156,7 @@
 							},
 							beforeSend: function (xhr) {
 								xhr.setRequestHeader('Authorization', 'Bearer ' + code);
-								xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivityFeed+json');
+								xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivity+json');
 							},
 							xhrFields: {
 								withCredentials: true
