@@ -85,7 +85,7 @@
 
 
 		var code = getURLParameter('code');
-		var get_url = 'https://api.runkeeper.com/fitnessActivities/';
+		var get_url = 'https://api.runkeeper.com/fitnessActivities/341950208';
 		var token = '';
 		console.log("The code is: " + code);
 		
@@ -120,7 +120,7 @@
 							},
 							beforeSend: function (xhr) {
 								xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-								xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivityFeed+json');
+								xhr.setRequestHeader('Accept', 'application/vnd.com.runkeeper.FitnessActivity+json');
 							},
 							xhrFields: {
 								withCredentials: true
