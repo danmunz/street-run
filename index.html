@@ -188,10 +188,10 @@
 				});
 
 				var code = getURLParameter('code');
-				var get_points_url = 'https://api.runkeeper.com/fitnessActivities/341950208';
+				var get_url = 'https://api.runkeeper.com/fitnessActivities/341950208';
 				var token = '';
 				console.log("The code is: " + code);		
-				getPoints(code, get_points_url, token);
+				getPoints(code, get_url, token);
 
 			}
 
@@ -202,13 +202,20 @@
 				$.each(geopoints, function (i, point) {
 
 					images[i] = new Image();
+
+//					var bearing = getBearing(point.latitude, point.longitude, point[i+1].latitude, point[i+1].longitude) || 90;
+
+					var bearing = 90;
 					
-					var bearing = getBearing(point.latitude, point.longitude, geopoints[i+1].latitude, geopoints[i+1].longitude);
-											
 					images[i].src = 'http://maps.googleapis.com/maps/api/streetview?size=600x600&location=' + point.latitude + ',' + point.longitude + '&fov=90&heading=' + bearing + '&pitch=10&sensor=false&key=AIzaSyBmgiINR9pEB3M7WAykSTceiO5uv4hJL4k';
+
+					images[i].bearing = bearing;
+					images[i].lat = point.latitude;
+					images[i].lng = point.longitude;
+
 				});
 				
-				interval = setInterval(cycle_images, 100);
+				interval = setInterval(cycle_images, 60);
 				
 			}
 
@@ -220,7 +227,7 @@
 			$('#slideshow_holder').hover(function () {
 				clearInterval(interval);
 			}, function () {
-				interval = setInterval(cycle_images, 100);
+				interval = setInterval(cycle_images, 60);
 			});
 
 
